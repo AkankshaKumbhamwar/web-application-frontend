@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { VITE_BACKEND_URL } from "../utils/env_config";
 
 const Signup = () => {
     const [formData, setFormData] = useState({ username: "", email: "", password: "" });
@@ -13,7 +14,7 @@ const Signup = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const res = await axios.post("http://localhost:1000/signup", formData);
+            const res = await axios.post(`${VITE_BACKEND_URL}/signup`, formData);
             console.log(res?.data);
             alert("Signup Successful!");
             navigate("/editor"); 

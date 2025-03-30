@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { VITE_BACKEND_URL } from "../utils/env_config";
 
 const HomePage = () => {
     const auth: any = useContext(AuthContext);
@@ -14,7 +15,7 @@ const HomePage = () => {
                     </button>
                 </a>
             ) : (
-                <a href="http://localhost:1000/auth/google">
+                <a href={`${VITE_BACKEND_URL}/auth/google`}>
                     <button style={{ padding: "10px", background: "blue", color: "white" }}>
                         Sign in with Google
                     </button>

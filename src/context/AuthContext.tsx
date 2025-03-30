@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
+import { VITE_BACKEND_URL } from "../utils/env_config";
 
 export const AuthContext = createContext<any>(null);
 
@@ -10,7 +11,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     // ✅ Logout function
     const logout = async () => {
         try {
-            await axios.get("http://localhost:1000/logout", { withCredentials: true });
+            await axios.get(`${VITE_BACKEND_URL}/logout`, { withCredentials: true });
             setUser(null);
         } catch (error) {
             console.error("Logout failed", error);
@@ -19,7 +20,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:1000/dashboard", { withCredentials: true })
+            .get(`${VITE_BACKEND_URL}/dashboard`, { withCredentials: true })
             .then((res) => {
                 console.log("Fetched User Data:", res.data);
                 if (res.data?.user) {

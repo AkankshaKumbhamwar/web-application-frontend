@@ -6,7 +6,7 @@ import { useGoogleAuth } from "./GoogleAuthContext";
 
 export default function LetterEditor() {
     const [text, setText] = useState("");
-    const { user, signIn, gapiLoaded }: any = useGoogleAuth();
+    const {  signIn, gapiLoaded }: any = useGoogleAuth();
 
     const uploadToGoogleDrive = async () => {
         if (!gapiLoaded) {

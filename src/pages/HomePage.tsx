@@ -1,10 +1,9 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import LetterEditor from "../component/textEditor";
 
 const HomePage = () => {
     const auth: any = useContext(AuthContext);
-    console.log(auth, "---------auth------");
+    console.log("Auth Data:", JSON.stringify(auth, null, 2));
     return (
         <div style={{ textAlign: "center", marginTop: "50px" }}>
             <h1>Login with Google</h1>

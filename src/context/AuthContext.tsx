@@ -1,13 +1,13 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
-import LetterEditor from "../component/textEditor";
-import Dashboard from "../pages/Dashboard";
 
-export const AuthContext: any = createContext(null);
+export const AuthContext = createContext<any>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState<any>(null);
     const [loading, setLoading] = useState(true);
+
+    // ✅ Logout function
     const logout = async () => {
         try {
             await axios.get("http://localhost:1000/logout", { withCredentials: true });
@@ -16,11 +16,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             console.error("Logout failed", error);
         }
     };
+
     useEffect(() => {
-        axios.get("http://localhost:1000/dashboard", { withCredentials: true })
+        axios
+            .get("http://localhost:1000/dashboard", { withCredentials: true })
             .then((res) => {
-                console.log(res?.data, "User Data"); // Debugging
-                if (res.data?.user) setUser(res.data.user);
+                console.log("Fetched User Data:", res.data);
+                if (res.data?.user) {
+                    setUser(res.data.user);
+                }
                 setLoading(false);
             })
             .catch((err) => {
@@ -31,9 +35,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user, loading }}>
+        <AuthContext.Provider value={{ user, loading, logout, setUser }}>
             {children}
-            {/* <Dashboard /> */}
         </AuthContext.Provider>
     );
 };
